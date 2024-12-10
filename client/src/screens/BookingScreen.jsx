@@ -3,12 +3,19 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Loader from "../Components/Loader";
 import Error from "../Components/Error";
+import moment from 'moment'
 
-function BookingScreen() {
-  const { roomId } = useParams(); //Configuración del parametro para la versión actual de react-router-dom
+function BookingScreen({match}) {
+  const { roomId, fromDate, toDate } = useParams(); //Configuración del parametro para la versión actual de react-router-dom
   const [room, setRoom] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+
+  const roomid = roomId;
+  const fromdate = moment(fromDate, 'DD-MM-YYYY')
+  const todate = moment(toDate, 'DD-MM-YYYY')
+
+  const totalDays = moment.duration(todate.diff(fromdate)).asDays() + 1;
 
   const fetchData = async () => {
     try {
@@ -45,8 +52,10 @@ function BookingScreen() {
                 <hr />
                 <b>
                   <p>Nombre: </p>
-                  <p>Fecha: </p>
+                  <p>Desde: {fromDate} </p>
+                  <p>Hasta: {toDate} </p>
                   <p>Capacidad: {room.capacity}</p>
+                  <p>Días totales: {totalDays} </p>
                 </b>
               </div>
               <hr />

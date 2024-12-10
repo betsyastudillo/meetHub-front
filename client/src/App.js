@@ -14,7 +14,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/home" exact element={<HomeScreen/>} />
-          <Route path="/book/:roomId" exact element={<BookingScreen/>} />
+          <Route path="/book/:roomId/:fromDate/:toDate" exact element={<BookingScreen/>} />
           <Route path="/register" exact element={<RegisterScreen/>} />
           <Route path="/login" exact element={<LoginScreen/>} />
         </Routes>
