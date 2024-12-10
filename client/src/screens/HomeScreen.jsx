@@ -1,6 +1,9 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Room from "../Components/Room";
+import Loader from "../Components/Loader";
+import Error from "../Components/Error";
+
 function HomeScreen() {
   const [rooms, setRooms] = useState([]);
   const [loading, setLoading] = useState();
@@ -12,6 +15,7 @@ function HomeScreen() {
       const data = (await axios.get("/api/rooms/getAllrooms")).data;
       setRooms(data);
       setLoading(false);
+      console.log("data",data)
     } catch (error) {
       setError(true);
       console.log(error);
@@ -26,15 +30,15 @@ function HomeScreen() {
     <div className="container">
       <div className="row justify-content-center mt-5">
         {loading ? (
-          <h1>Cargando...</h1>
-        ) : error ? (
-          <h1>Error</h1>
-        ) : (
+          <Loader />
+        ) : rooms.length>1 ? (
           rooms.map((room, index) => {
-            return <div key={index} className="col-md-9 mt-2">
+            return <div key={index} className="col-md-9 mt-3">
               <Room room={room}/>
             </div>
           })
+        ) : (
+          <Error />
         )}
       </div>
     </div>

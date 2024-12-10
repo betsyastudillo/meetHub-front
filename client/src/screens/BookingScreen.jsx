@@ -1,6 +1,8 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import Loader from "../Components/Loader";
+import Error from "../Components/Error";
 
 function BookingScreen() {
   const { roomId } = useParams(); //Configuración del parametro para la versión actual de react-router-dom
@@ -29,10 +31,8 @@ function BookingScreen() {
   return (
     <div className="m-5">
       {loading ? (
-        <h1>Cargando...</h1>
-      ) : error ? (
-        <h1>Error...</h1>
-      ) : (
+        <Loader />
+      ) : room ? (
         <div>
           <div className="row justify-content-center mt-5 bs">
             <div className="col-md-6">
@@ -56,6 +56,8 @@ function BookingScreen() {
             </div>
           </div>
         </div>
+      ) : (
+        <Error />
       )}
     </div>
   );

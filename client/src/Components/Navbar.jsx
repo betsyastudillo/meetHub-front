@@ -21,7 +21,7 @@ function Navbar() {
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
             <li class="nav-item active">
-              <a class="nav-link" href="/registrarse">
+              <a class="nav-link" href="/register">
                 Registrarse
               </a>
             </li>
