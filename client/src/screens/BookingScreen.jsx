@@ -35,6 +35,23 @@ function BookingScreen({match}) {
     fetchData();
   }, []);
 
+  async function bookRoom(){
+    const bookingDetails = {
+       room, 
+       userId:JSON.parse(localStorage.getItem('currentUser'))._id,
+       fromDate,
+       toDate,
+       totalDays,
+    }
+
+    try {
+      const result = await axios.post('/api/bookings/bookroom', bookingDetails)
+    } catch (error) {
+  
+    }
+
+  }
+
   return (
     <div className="m-5">
       {loading ? (
@@ -60,7 +77,7 @@ function BookingScreen({match}) {
               </div>
               <hr />
               <div style={{float:'right'}}>
-                <button className="btn btn-primary">Reservar Ahora</button>
+                <button className="btn btn-primary" onClick={bookRoom}>Reservar Ahora</button>
               </div>
             </div>
           </div>
