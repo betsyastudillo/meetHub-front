@@ -11,7 +11,7 @@ function Navbar() {
   return (
     <div>
       <nav class="navbar navbar-expand-lg">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="/home">
           MeetHub
         </a>
         <button

@@ -12,13 +12,16 @@ function BookingScreen({match}) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  const roomid = roomId;
+  // const roomid = roomId;
   const fromdate = moment(fromDate, 'DD-MM-YYYY')
   const todate = moment(toDate, 'DD-MM-YYYY')
 
   const totalDays = moment.duration(todate.diff(fromdate)).asDays() + 1;
 
   const fetchData = async () => {
+    if(!localStorage.getItem('currentUser')){
+      window.location.href='/login';
+    }
     try {
       setLoading(true);
       // El match.params.roomId ya no se utiliza en las versiones actuales de react-router-dom, entonces no se pasa tampoco como parametro
