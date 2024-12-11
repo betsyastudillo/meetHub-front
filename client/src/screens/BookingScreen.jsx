@@ -31,21 +31,23 @@ function BookingScreen({match}) {
       setLoading(false);
     }
   };
+
   useEffect(() => {
     fetchData();
   }, []);
 
   async function bookRoom(){
     const bookingDetails = {
-       room, 
-       userId:JSON.parse(localStorage.getItem('currentUser'))._id,
-       fromDate,
-       toDate,
-       totalDays,
+      room, 
+      userId: JSON.parse(localStorage.getItem('currentUser'))._id,
+      fromDate,
+      toDate,
+      totalDays,
     }
 
     try {
       const result = await axios.post('/api/bookings/bookroom', bookingDetails)
+
     } catch (error) {
   
     }
@@ -68,7 +70,7 @@ function BookingScreen({match}) {
                 <h1>Detalles de la reserva</h1>
                 <hr />
                 <b>
-                  <p>Nombre: </p>
+                  <p>Nombre: {JSON.parse(localStorage.getItem('currentUser')).name}</p>
                   <p>Desde: {fromDate} </p>
                   <p>Hasta: {toDate} </p>
                   <p>Capacidad: {room.capacity}</p>

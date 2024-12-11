@@ -36,9 +36,6 @@ function HomeScreen() {
 
 
   function filterByDate(dates) {
-    console.log(dates)
-    console.log((dates[0]).format('DD-MM-YYYY'))
-    console.log((dates[1]).format('DD-MM-YYYY'))
 
     setFromDate((dates[0]).format('DD-MM-YYYY'))
     setToDate((dates[1]).format('DD-MM-YYYY'))
