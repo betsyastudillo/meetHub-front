@@ -16,6 +16,8 @@ function HomeScreen() {
   const [toDate, setToDate] = useState();
   const [duplicateRoooms, setDuplicateRooms] = useState([]);
 
+  const [searchKey, setSearchKey] = useState('')
+
   const fetchData = async () => {
     try {
       setLoading(true);
@@ -30,13 +32,13 @@ function HomeScreen() {
       setLoading(false);
     }
   };
+
   useEffect(() => {
     fetchData();
   }, []);
 
   function filterByDate(dates) {
-    console.log(dates[0].format("DD-MM-YYYY"));
-    console.log(dates[1].format("DD-MM-YYYY"));
+
     setFromDate(dates[0].format("DD-MM-YYYY"));
     setToDate(dates[1].format("DD-MM-YYYY"));
 
@@ -45,101 +47,56 @@ function HomeScreen() {
 
     const tempRooms = duplicateRoooms.filter((room) => {
       if (room.currentBookings.length === 0) {
-        return true; // Si no hay reservas, la sala está disponible
+        return true; 
       }
 
-      // Verificar si el rango de fechas se solapa con alguna reserva actual
       const isAvailable = room.currentBookings.every((booking) => {
         const bookingFromDate = moment(booking.fromDate, "DD-MM-YYYY");
         const bookingToDate = moment(booking.toDate, "DD-MM-YYYY");
 
-        // Comprobamos que no hay solapamiento
         return (
-          endDate.isBefore(bookingFromDate, "day") || // Termina antes de la reserva
-          startDate.isAfter(bookingToDate, "day") // Empieza después de la reserva
+          endDate.isBefore(bookingFromDate, "day") || 
+          startDate.isAfter(bookingToDate, "day") 
         );
       });
 
-      return isAvailable; // Solo añadir la sala si está disponible
+      return isAvailable; 
     });
 
     setRooms(tempRooms);
   }
 
-  // Para deshabilitar las fechas anteriores
-
-  // function filterByDate(dates) {
-  //   // Formatear las fechas seleccionadas para usarlas en las comparaciones
-  //   const formattedFromDate = moment(dates[0], 'DD-MM-YYYY');
-  //   const formattedToDate = moment(dates[1], 'DD-MM-YYYY');
-
-  //   console.log('From Date:', formattedFromDate.format('DD-MM-YYYY'));
-  //   console.log('To Date:', formattedToDate.format('DD-MM-YYYY'));
-
-  //   setFromDate(formattedFromDate.format('DD-MM-YYYY'));
-  //   setToDate(formattedToDate.format('DD-MM-YYYY'));
-
-  // const tempRooms = [];
-
-  // for (const room of duplicateRoooms) {
-  //   let availability = true; // Por defecto, la sala está disponible
-  //   console.log(`\nEvaluando sala: ${room.name}`);
-  //   console.log('Reservas actuales:', room.currentBookings);
-
-  //   if (room.currentBookings.length > 0) {
-  //     for (const booking of room.currentBookings) {
-  //       // Convertir las fechas de la reserva en objetos Moment
-  //       const bookingStart = moment(booking.fromDate, 'DD-MM-YYYY');
-  //       const bookingEnd = moment(booking.toDate, 'DD-MM-YYYY');
-
-  //       console.log(`  Reserva: ${booking.fromDate} - ${booking.toDate}`);
-  //       console.log(`  Fechas seleccionadas: ${formattedFromDate.format('DD-MM-YYYY')} - ${formattedToDate.format('DD-MM-YYYY')}`);
-
-  //       // Verificar si las fechas seleccionadas se solapan con la reserva
-  //       const isOverlapping =
-  //         formattedFromDate.isBetween(bookingStart, bookingEnd, undefined, '[]') || // Fecha de inicio seleccionada está dentro de la reserva
-  //         formattedToDate.isBetween(bookingStart, bookingEnd, undefined, '[]') || // Fecha de fin seleccionada está dentro de la reserva
-  //         bookingStart.isBetween(formattedFromDate, formattedToDate, undefined, '[]') || // Fecha de inicio de la reserva está dentro del rango seleccionado
-  //         bookingEnd.isBetween(formattedFromDate, formattedToDate, undefined, '[]'); // Fecha de fin de la reserva está dentro del rango seleccionado
-
-  //       if (isOverlapping) {
-  //         console.log(`  → Solapamiento detectado. Sala no disponible.`);
-  //         availability = false; // Sala no está disponible
-  //         break; // No necesitamos revisar más reservas para esta sala
-  //       }
-  //     }
-  //   }
-
-  //   console.log(`  Resultado para la sala ${room.name}: availability = ${availability}`);
-
-  //   // Si la sala está disponible o no tiene reservas, la añadimos a la lista temporal
-  //   if (availability || room.currentBookings.length === 0) {
-  //     tempRooms.push(room);
-  //   }
-  // }
-
-  // setRooms(tempRooms); // Actualizamos las salas visibles
-  // }
-
+  // Para deshabilitar días anteriores
   const disablePastDates = (current) => {
     return current && current < moment().startOf("day");
   };
 
+  function filterBySearch () {
+    const tempRooms = duplicateRoooms.filter(room => room.name.toLowerCase().includes(searchKey.toLowerCase())) 
+
+    setRooms(tempRooms)
+  }
+
   return (
     <div className="container">
-      <div className="row mt-5">
-        <div className="col-md-3">
+      <div className="row mt-5 bs">
+        <div className="col-md-5">
           <RangePicker
             disabledDate={disablePastDates}
             format="DD-MM-YYYY"
             onChange={filterByDate}
           />
         </div>
+        <div className="col-md-5">
+          <input type="text" className="form-control" placeholder="Busca por salas" 
+          value={searchKey} onChange={(e) =>{setSearchKey(e.target.value)}} onKeyUp={filterBySearch}
+          />
+        </div>
       </div>
       <div className="row justify-content-center mt-5">
         {loading ? (
           <Loader />
-        ) : rooms.length > 1 ? (
+        ) : (
           rooms.map((room, index) => {
             return (
               <div key={index} className="col-md-9 mt-3">
@@ -147,8 +104,6 @@ function HomeScreen() {
               </div>
             );
           })
-        ) : (
-          <Error />
         )}
       </div>
     </div>
