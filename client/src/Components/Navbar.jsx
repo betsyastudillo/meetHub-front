@@ -37,7 +37,7 @@ function Navbar() {
                 {user.name}
               </button>
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Reservas</a></li>
+                <li><a class="dropdown-item" href="/bookings">Reservas</a></li>
                 <li><a class="dropdown-item" href="#" onClick={logout}>Cerrar sesión</a></li>
               </ul>
             </div>

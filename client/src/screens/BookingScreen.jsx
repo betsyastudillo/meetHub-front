@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import Loader from "../Components/Loader";
 import Error from "../Components/Error";
 import moment from 'moment'
+import Swal from 'sweetalert2'
 
 function BookingScreen({match}) {
   const { roomId, fromDate, toDate } = useParams(); //Configuración del parametro para la versión actual de react-router-dom
@@ -46,10 +47,15 @@ function BookingScreen({match}) {
     }
 
     try {
+      setLoading(true);
       const result = await axios.post('/api/bookings/bookroom', bookingDetails)
-
+      setLoading(false);
+      Swal.fire('Felicidades', 'Tu reserva ha sido confirmada exitosamente.', 'success').then(result => {
+        window.location.href='/bookings'
+      });
     } catch (error) {
-  
+      setLoading(false);
+      Swal.fire('Ups..', 'Algo salió mal con la reserva, por favor intentalo de nuevo.', 'error' )
     }
 
   }
