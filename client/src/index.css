@@ -44,7 +44,7 @@ h1 {
   font-size: 20px !important;
 }
 .btn {
-  background-color: black !important;
+  background-color: black ;
   color: #fff;
   box-shadow: none !important;
 }
@@ -67,12 +67,32 @@ input, .ant-picker {
 }
 
 h2 {
-  font-size: 30px !important;
+  font-size: 30px ;
   padding: 10px;
-  font-weight: bold !important;
+  font-weight: bold ;
   text-align: center;
 }
 
 .dropdown-toggle {
   border: 0px solid black !important;
+}
+
+.landing{
+  background-color: black;
+  height: 100vh;
+  padding-top: 130px;
+
+}
+.titulo {
+  color: #fff;
+}
+
+.landingbtn{
+  background-color: #fff;
+  color: black;
+  margin-top: 20px;
+}
+
+.landing .col-md-12{
+  border-right: 5px solid white;
 }
