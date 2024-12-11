@@ -2,13 +2,13 @@
 import "./App.css";
 import Navbar from "./Components/Navbar";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import HomeScreen from "./screens/HomeScreen";
-import BookingScreen from "./screens/BookingScreen";
-import LoginScreen from "./screens/LoginScreen";
-import RegisterScreen from "./screens/RegisterScreen";
-import ProfileScreen from "./screens/ProfileScreen";
-import AdminScreen from "./screens/AdminScreen";
-import LandingScreen from "./screens/LandingScreen";
+import HomeScreen from "./Screens/HomeScreen";
+import BookingScreen from "./Screens/BookingScreen";
+import LoginScreen from "./Screens/LoginScreen";
+import RegisterScreen from "./Screens/RegisterScreen";
+import ProfileScreen from "./Screens/ProfileScreen";
+import AdminScreen from "./Screens/AdminScreen";
+import LandingScreen from "./Screens/LandingScreen";
 
 function App() {
   return (
