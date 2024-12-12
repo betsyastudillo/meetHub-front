@@ -53,7 +53,7 @@ function BookingScreen({match}) {
       setLoading(true);
       const result = await axios.post('/api/bookings/bookroom', bookingDetails)
       setLoading(false);
-      Swal.fire('Felicidades', 'Tu reserva ha sido confirmada exitosamente.', 'success').then(result => {
+      Swal.fire('Felicidades', 'Tu reserva ha sido confirmada exitosamente. Hemos enviado un email a tu correo.', 'success').then(result => {
         window.location.href='/profile'
       });
     } catch (error) {
