@@ -1,14 +1,14 @@
 import { useState } from "react";
 import { Button, Modal, Carousel } from "react-bootstrap";
 import { Link } from 'react-router-dom';
-function Room({ room, fromDate, toDate }) {
+function Room({ room, fromDate, toDate, isNotTop }) {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
   return (
-    <div className="row bs">
+    <div className=" row bs">
       <div className="col-md-4">
         <img src={room.imgUrl[0]} alt="" className="small-img" />
       </div>
@@ -22,7 +22,7 @@ function Room({ room, fromDate, toDate }) {
 
         <div style={{ float: "right" }}>
 
-        {(fromDate && toDate) && (
+        {(fromDate && toDate && isNotTop) && (
           <Link to={`/book/${room._id}/${fromDate}/${toDate}`}>
             <button className="btn mr-5">Reserva Ahora</button>
           </Link>
