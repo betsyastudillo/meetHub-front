@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Loader from "../Components/Loader";
 import Error from "../Components/Error";
 import moment from 'moment'
@@ -11,6 +11,18 @@ function BookingScreen({match}) {
   const [room, setRoom] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const navigate = useNavigate();
+  
+  const [isUserValid, setIsUserValid] = useState(false);
+
+  useEffect(() => {
+    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+    if (!currentUser) {
+      navigate("/login"); // Redirige si no hay usuario
+    } else {
+      setIsUserValid(true); // Usuario válido
+    }
+  }, [navigate]);
 
   // const roomid = roomId;
   const fromdate = moment(fromDate, 'DD-MM-YYYY')
@@ -19,10 +31,13 @@ function BookingScreen({match}) {
   const totalDays = moment.duration(todate.diff(fromdate)).asDays() + 1;
 
   const fetchData = async () => {
-    if(!localStorage.getItem('currentUser')){
-      window.location.href='/login';
-    }
+    
+    
     try {
+      const dataHome = (await axios.get("/api/users/home")).data;
+    if(dataHome.message !== 'Success!'){
+      navigate('/login');
+    }
       setLoading(true);
       // El match.params.roomId ya no se utiliza en las versiones actuales de react-router-dom, entonces no se pasa tampoco como parametro
       const data = (await axios.post("/api/rooms/getRoomById", { roomId }))

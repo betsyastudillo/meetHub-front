@@ -3,9 +3,8 @@ import '../index.css'
 import { useEffect, useState } from "react";
 import Room from "../Components/Room";
 import Loader from "../Components/Loader";
-import Error from "../Components/Error";
 import moment from "moment";
-import { DatePicker, Space } from "antd";
+import { DatePicker} from "antd";
 const { RangePicker } = DatePicker;
 
 function HomeScreen() {
