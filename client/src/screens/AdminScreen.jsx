@@ -1,8 +1,7 @@
 import { Tabs } from "antd";
 import Loader from "../Components/Loader";
-import Error from "../Components/Error";
 import axios from "axios";
-import { Component, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Swal from 'sweetalert2';
 
 const onChange = (key) => {
