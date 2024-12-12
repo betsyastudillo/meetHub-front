@@ -2,7 +2,7 @@ import { Tabs } from "antd";
 import Loader from "../Components/Loader";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import Swal from 'sweetalert2';
+import Swal from "sweetalert2";
 
 const onChange = (key) => {
   console.log(key);
@@ -32,7 +32,7 @@ const items = [
 function AdminScreen() {
   useEffect(() => {
     if (!JSON.parse(localStorage.getItem("currentUser")).isAdmin) {
-      window.location.href = '/home'
+      window.location.href = "/home";
     }
   }, []);
 
@@ -47,7 +47,6 @@ function AdminScreen() {
 }
 
 export default AdminScreen;
-
 
 /* Bookings = Reservas  */
 export function Bookings() {
@@ -79,7 +78,7 @@ export function Bookings() {
         )}
 
         <table className="table table-bordered">
-          <thead className="bs" style={{backgroundColor: '#88A9C3'}}>
+          <thead className="bs" style={{ backgroundColor: "#88A9C3" }}>
             <tr>
               <th className="text-center">ID Reserva </th>
               <th className="text-center">Cliente</th>
@@ -90,24 +89,23 @@ export function Bookings() {
             </tr>
           </thead>
           <tbody>
-            {bookings.length && (bookings.map(booking => {
-              return <tr>
-                <td>{booking._id}</td>  {/* reservas id  = roomId */}
-                <td>{booking.userId}</td>
-                <td className="text-center">{booking.room}</td>
-                <td className="text-center">{booking.fromDate}</td>
-                <td className="text-center">{booking.toDate}</td>
-                <td className="text-center">{booking.status}</td>
-              </tr>
-            }))}
+            {bookings.length > 0 &&
+              bookings.map((booking) => (
+                <tr key={booking._id}>
+                  <td>{booking._id}</td> {/* reservas id  = roomId */}
+                  <td>{booking.userId}</td>
+                  <td className="text-center">{booking.room}</td>
+                  <td className="text-center">{booking.fromDate}</td>
+                  <td className="text-center">{booking.toDate}</td>
+                  <td className="text-center">{booking.status}</td>
+                </tr>
+              ))}
           </tbody>
         </table>
-
       </div>
     </div>
   );
 }
-
 
 /* Salas  */
 export function Room() {
@@ -131,51 +129,57 @@ export function Room() {
   //Editar sala
   const updateRoom = async (id) => {
     Swal.fire({
-      title: 'Actualizar sala',
-      input: 'text',
-      inputPlaceholder: 'Nombre de la sala',
+      title: "Actualizar sala",
+      input: "text",
+      inputPlaceholder: "Nombre de la sala",
       showCancelButton: true,
-      confirmButtonText: 'Actualizar',
-      confirmButtonColor: '#5DA9E9',
-      cancelButtonText: 'Cancelar'
-    }).then(result => {
+      confirmButtonText: "Actualizar",
+      confirmButtonColor: "#5DA9E9",
+      cancelButtonText: "Cancelar",
+    }).then((result) => {
       if (result.isConfirmed) {
-        axios.put(`/api/rooms/updateRoom/${id}`, { name: result.value })
-         .then(() => {
-            Swal.fire('Sala actualizada!', '', 'success')
+        axios
+          .put(`/api/rooms/updateRoom/${id}`, { name: result.value })
+          .then(() => {
+            Swal.fire("Sala actualizada!", "", "success");
             window.location.reload();
           })
-         .catch(error => {
-            console.error('Error updating room', error);
-            Swal.fire('Error!', 'Hubo un error al actualizar la sala.', 'error');
+          .catch((error) => {
+            console.error("Error updating room", error);
+            Swal.fire(
+              "Error!",
+              "Hubo un error al actualizar la sala.",
+              "error"
+            );
           });
       }
     });
-  }
+  };
   // Eliminar sala
   const deleteRoom = async (id) => {
     Swal.fire({
-      title: 'Estás seguro?',
+      title: "Estás seguro?",
       text: "No podrás revertir esto!",
-      icon: 'warning',
+      icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Sí, eliminar!'
-    }).then(result => {
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Sí, eliminar!",
+    }).then((result) => {
       if (result.isConfirmed) {
-        axios.delete(`/api/rooms/deleteRoom/${id}`)
-         .then(() => {
-            Swal.fire('Sala eliminada!', '', 'success')
+        axios
+          .delete(`/api/rooms/deleteRoom/${id}`)
+          .then(() => {
+            Swal.fire("Sala eliminada!", "", "success");
             window.location.reload();
           })
-         .catch(error => {
-            console.error('Error deleting room', error);
-            Swal.fire('Error!', 'Hubo un error al eliminar la sala.', 'error');
+          .catch((error) => {
+            console.error("Error deleting room", error);
+            Swal.fire("Error!", "Hubo un error al eliminar la sala.", "error");
           });
       }
     });
-  }
+  };
 
   return (
     <div className="row mt-5">
@@ -185,40 +189,46 @@ export function Room() {
           <h5 className="mb-5">Hay un total de: {rooms.length} salas</h5>
         )}
 
-        <table className="table table-bordered" >
-          <thead className="bs" style={{backgroundColor: '#88A9C3'}}>
+        <table className="table table-bordered">
+          <thead className="bs" style={{ backgroundColor: "#88A9C3" }}>
             <tr>
               <th className="text-center">ID Sala</th>
               <th className="text-center">Nombre Sala</th>
               <th className="text-center">Capacidad</th>
               <th className="text-center">Acciones</th>
-
             </tr>
           </thead>
           <tbody>
-            {rooms.length && (rooms.map(room => {
-              return <tr>
-                <td>{room._id}</td>
-                <td className="text-center">{room.name}</td>
-                <td className="text-center">{room.capacity}</td>
-                <td className="text-center ">
-                  <button className="btn btn-danger" onClick={() => deleteRoom(room._id)}>
-                    Eliminar
-                  </button>
-                  <button className="btn btn-primary" onClick={() => updateRoom(room._id)}>
-                    Modificar
-                  </button>
-                </td>
-              </tr>
-            }))}
+            {rooms.length &&
+              rooms.map((room,index) => {
+                return (
+                  <tr key={index}>
+                    <td>{room._id}</td>
+                    <td className="text-center">{room.name}</td>
+                    <td className="text-center">{room.capacity}</td>
+                    <td className="text-center ">
+                      <button
+                        className="btn btn-danger"
+                        onClick={() => deleteRoom(room._id)}
+                      >
+                        Eliminar
+                      </button>
+                      <button
+                        className="btn btn-primary"
+                        onClick={() => updateRoom(room._id)}
+                      >
+                        Modificar
+                      </button>
+                    </td>
+                  </tr>
+                );
+              })}
           </tbody>
         </table>
-
       </div>
     </div>
   );
 }
-
 
 /* Usuario */
 export function User() {
@@ -248,7 +258,7 @@ export function User() {
         {loading && <loader />}
 
         <table className="table table-bordered">
-          <thead style={{backgroundColor: '#88A9C3'}}>
+          <thead style={{ backgroundColor: "#88A9C3" }}>
             <tr>
               <th className="text-center">ID Usuario</th>
               <th className="text-center">Nombre</th>
@@ -258,97 +268,137 @@ export function User() {
           </thead>
 
           <tbody>
-            {users && (users.map(user => {
-              return <tr>
-                <td>{user._id}</td>
-                <td className="text-center">{user.name}</td>
-                <td>{user.email}</td>
-                <td className="text-center">{user.isAdmin ? 'Administrador' : 'Cliente'}</td>
-              </tr>
-            }))}
+            {users &&
+              users.map((user, index) => {
+                return (
+                  <tr key={index}>
+                    <td>{user._id}</td>
+                    <td className="text-center">{user.name}</td>
+                    <td>{user.email}</td>
+                    <td className="text-center">
+                      {user.isAdmin ? "Administrador" : "Cliente"}
+                    </td>
+                  </tr>
+                );
+              })}
           </tbody>
-
         </table>
       </div>
     </div>
-  )
-
+  );
 }
-
 
 /* Panel Administrador */
 export function Addroom() {
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState();
+  // const [error, setError] = useState();
 
-  const [name, setName] = useState('')
-  const [capacity, setCapacity] = useState()
-  const [location, setLocation] = useState('')
-  const [imgUrl1, setImgUrl1] = useState()
-  const [imgUrl2, setImgUrl2] = useState()
-  const [imgUrl3, setImgUrl3] = useState()
+  const [name, setName] = useState("");
+  const [capacity, setCapacity] = useState();
+  const [location, setLocation] = useState("");
+  const [imgUrl1, setImgUrl1] = useState();
+  const [imgUrl2, setImgUrl2] = useState();
+  const [imgUrl3, setImgUrl3] = useState();
 
   async function addRoom() {
-
     const newroom = {
       name,
       capacity,
       location,
-      imgUrl: [imgUrl1, imgUrl2, imgUrl3]
-    }
+      imgUrl: [imgUrl1, imgUrl2, imgUrl3],
+    };
 
     try {
-
       setLoading(true);
 
-      const result = (await axios.post('/api/rooms/addroom', newroom)).data
-      setLoading(false)
+      const result = (await axios.post("/api/rooms/addroom", newroom)).data;
+      setLoading(false);
 
-      Swal.fire('Felicidades', 'La sala se creo exitosamente', 'success').then(result => {
-        window.location.href = '/home'
-      })
-
+      Swal.fire("Felicidades", "La sala se creo exitosamente", "success").then(
+        (result) => {
+          window.location.href = "/home";
+        }
+      );
     } catch (error) {
-
-      console.log(error)
-      setLoading(false)
-      Swal.fire('Ups', 'Algo ha salido mal, por favor intenta de nuevo.', 'error')
+      console.log(error);
+      setLoading(false);
+      Swal.fire(
+        "Ups",
+        "Algo ha salido mal, por favor intenta de nuevo.",
+        "error"
+      );
     }
   }
 
   return (
     <div className="row m-5">
       <h3 className="m-3">Crear Sala</h3>
-        <div className="col-md-3">
-          {loading && <loader />}
-          <input type="text" className="form-control" placeholder="Nombre sala"
-            value={name} onChange={(e) => { setName(e.target.value) }}
-          />
-          <input type="text" className="form-control" placeholder="Capacidad"
-            value={capacity} onChange={(e) => { setCapacity(e.target.value) }}
-          />
-          <input type="text" className="form-control" placeholder="Locacion"
-            value={location} onChange={(e) => { setLocation(e.target.value) }} />
-        </div>
+      <div className="col-md-3">
+        {loading && <Loader />}
+        <input
+          type="text"
+          className="form-control"
+          placeholder="Nombre sala"
+          value={name}
+          onChange={(e) => {
+            setName(e.target.value);
+          }}
+        />
+        <input
+          type="text"
+          className="form-control"
+          placeholder="Capacidad"
+          value={capacity}
+          onChange={(e) => {
+            setCapacity(e.target.value);
+          }}
+        />
+        <input
+          type="text"
+          className="form-control"
+          placeholder="Locacion"
+          value={location}
+          onChange={(e) => {
+            setLocation(e.target.value);
+          }}
+        />
+      </div>
 
       <div className="col-md-4">
-        <input type="text" className="form-control" placeholder="Imagen url 1"
-          value={imgUrl1} onChange={(e) => { setImgUrl1(e.target.value) }}
+        <input
+          type="text"
+          className="form-control"
+          placeholder="Imagen url 1"
+          value={imgUrl1}
+          onChange={(e) => {
+            setImgUrl1(e.target.value);
+          }}
         />
-        <input type="text" className="form-control" placeholder="Imagen url 2"
-          value={imgUrl2} onChange={(e) => { setImgUrl2(e.target.value) }}
+        <input
+          type="text"
+          className="form-control"
+          placeholder="Imagen url 2"
+          value={imgUrl2}
+          onChange={(e) => {
+            setImgUrl2(e.target.value);
+          }}
         />
-        <input type="text" className="form-control" placeholder="Imagen url 3"
-          value={imgUrl3} onChange={(e) => { setImgUrl3(e.target.value) }}
+        <input
+          type="text"
+          className="form-control"
+          placeholder="Imagen url 3"
+          value={imgUrl3}
+          onChange={(e) => {
+            setImgUrl3(e.target.value);
+          }}
         />
 
         <div className="text-right">
-          <button className="btn mt-5" onClick={addRoom}>Crear</button>
+          <button className="btn mt-5" onClick={addRoom}>
+            Crear
+          </button>
         </div>
       </div>
     </div>
-  )
+  );
 }
-
-
-
