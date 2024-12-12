@@ -128,6 +128,54 @@ export function Room() {
     }
     fetchData();
   }, []);
+  //Editar sala
+  const updateRoom = async (id) => {
+    Swal.fire({
+      title: 'Actualizar sala',
+      input: 'text',
+      inputPlaceholder: 'Nombre de la sala',
+      showCancelButton: true,
+      confirmButtonText: 'Actualizar',
+      confirmButtonColor: '#5DA9E9',
+      cancelButtonText: 'Cancelar'
+    }).then(result => {
+      if (result.isConfirmed) {
+        axios.put(`/api/rooms/updateRoom/${id}`, { name: result.value })
+         .then(() => {
+            Swal.fire('Sala actualizada!', '', 'success')
+            window.location.reload();
+          })
+         .catch(error => {
+            console.error('Error updating room', error);
+            Swal.fire('Error!', 'Hubo un error al actualizar la sala.', 'error');
+          });
+      }
+    });
+  }
+  // Eliminar sala
+  const deleteRoom = async (id) => {
+    Swal.fire({
+      title: 'Estás seguro?',
+      text: "No podrás revertir esto!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, eliminar!'
+    }).then(result => {
+      if (result.isConfirmed) {
+        axios.delete(`/api/rooms/deleteRoom/${id}`)
+         .then(() => {
+            Swal.fire('Sala eliminada!', '', 'success')
+            window.location.reload();
+          })
+         .catch(error => {
+            console.error('Error deleting room', error);
+            Swal.fire('Error!', 'Hubo un error al eliminar la sala.', 'error');
+          });
+      }
+    });
+  }
 
   return (
     <div className="row mt-5">
@@ -143,6 +191,7 @@ export function Room() {
               <th className="text-center">ID Sala</th>
               <th className="text-center">Nombre Sala</th>
               <th className="text-center">Capacidad</th>
+              <th className="text-center">Acciones</th>
 
             </tr>
           </thead>
@@ -152,6 +201,14 @@ export function Room() {
                 <td>{room._id}</td>
                 <td className="text-center">{room.name}</td>
                 <td className="text-center">{room.capacity}</td>
+                <td className="text-center ">
+                  <button className="btn btn-danger" onClick={() => deleteRoom(room._id)}>
+                    Eliminar
+                  </button>
+                  <button className="btn btn-primary" onClick={() => updateRoom(room._id)}>
+                    Modificar
+                  </button>
+                </td>
               </tr>
             }))}
           </tbody>

@@ -136,7 +136,7 @@ export function MyBookings() {
 
 export function MyProfile() {
   return (
-    <div className="card bs col-sm-3 m-5" style={{borderRadius: '10px', backgroundColor: '#88A9C3'}}>
+    <div className="card bs col-sm-5 m-5" style={{borderRadius: '10px', backgroundColor: '#88A9C3'}}>
       <div className="m-5 d-flex justify-content-between align-items-center">
         <div className="info">
           <h1>Mi Perfil</h1>
