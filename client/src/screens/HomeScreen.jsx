@@ -1,4 +1,5 @@
 import axios from "axios";
+import '../index.css'
 import { useEffect, useState } from "react";
 import Room from "../Components/Room";
 import Loader from "../Components/Loader";
@@ -79,18 +80,34 @@ function HomeScreen() {
 
   return (
     <div className="container">
-      <div className="row mt-5 bs">
-        <div className="col-md-5">
-          <RangePicker
-            disabledDate={disablePastDates}
-            format="DD-MM-YYYY"
-            onChange={filterByDate}
-          />
-        </div>
-        <div className="col-md-5">
-          <input type="text" className="form-control" placeholder="Busca por salas" 
-          value={searchKey} onChange={(e) =>{setSearchKey(e.target.value)}} onKeyUp={filterBySearch}
-          />
+      <h1 className="text-center mt-5 title-rooms">Nuestras salas</h1>
+      <h6 className="mt-3 text-center">Selecciona el rango de fechas para comprobar la disponibilidad.</h6>
+      <div className="container mt-3">
+        <div className="row d-flex justify-content-around align-items-center">
+          <div className="col-md-5">
+            <div className="bs" style={{ width: '100%' }}>
+              <RangePicker
+                disabledDate={disablePastDates}
+                format="DD-MM-YYYY"
+                onChange={filterByDate}
+                style={{ width: '100%' }} 
+              />
+            </div>
+          </div>
+
+          <div className="col-md-5">
+            <div className="bs" style={{ width: '100%' }}>
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Busca por salas"
+                value={searchKey}
+                onChange={(e) => setSearchKey(e.target.value)}
+                onKeyUp={filterBySearch}
+                style={{ width: '100%' }}
+              />
+            </div>
+          </div>
         </div>
       </div>
       <div className="row justify-content-center mt-5">

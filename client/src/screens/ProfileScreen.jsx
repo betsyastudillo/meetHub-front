@@ -66,6 +66,7 @@ export function MyBookings() {
 
     fetchData();
   }, []);
+
   async function cancelBooking(bookingId, roomId) {
     try {
       setLoading(true);
@@ -89,15 +90,16 @@ export function MyBookings() {
       });
     }
   }
+
   return (
     <div>
-      <div className="row">
+      <div className="row m-5">
         <div className="col-md-6">
           {loading && <Loader />}
           {bookings &&
             bookings.map((booking) => (
-              <div className="bs">
-                <h1>{booking.room}</h1>
+              <div className="bs" style={{backgroundColor: 'wheat', borderRadius: '10px'}}>
+                <h2>{booking.room}</h2>
                 <p>
                   <b>ID Reserva:</b> {booking._id}
                 </p>
@@ -109,18 +111,18 @@ export function MyBookings() {
                 </p>
                 <p>
                   <b>Estado:</b>{" "}
-                  {booking.status === 'cancelled' ? (<Tag color="red">CANCELADO</Tag>) : (<Tag color="green">CONFIRMADO</Tag>)}
+                  {booking.status === 'Cancelada' ? (<Tag color="red">CANCELADA</Tag>) : (<Tag color="green">CONFIRMADA</Tag>)}
                 </p>
 
-                {booking.status !== "cancelled" && (
+                {booking.status !== "Cancelada" && (
                   <div className="text-right">
                     <button
-                      className="btn btn-primary"
+                      className="btn m-3"
                       onClick={() => {
                         cancelBooking(booking._id, booking.roomId);
                       }}
                     >
-                      CANCELAR RESERVA
+                      Cancelar Reserva
                     </button>
                   </div>
                 )}
@@ -134,13 +136,30 @@ export function MyBookings() {
 
 export function MyProfile() {
   return (
-    <div>
-      <h1>Mis Perfil</h1>
-      <br />
+    <div className="card bs col-sm-3 m-5" style={{borderRadius: '10px', backgroundColor: '#88A9C3'}}>
+      <div className="m-5 d-flex justify-content-between align-items-center">
+        <div className="info">
+          <h1>Mi Perfil</h1>
+          <br />
+          <h6>Name: {user.name}</h6>
+          <h6>Email: {user.email}</h6>
+          <h6>Administrador: {user.isAdmin ? "Si" : "No"}</h6>
+        </div>
 
-      <h1>Name: {user.name}</h1>
-      <h1>Email: {user.email}</h1>
-      <h1>Administrador: {user.isAdmin ? "Si" : "No "}</h1>
+        <div className="avatar text-center">
+          <img 
+            src="/avatar.png"
+            alt="avatar"
+            style={{
+              width: '100px',
+              height: '100px',
+              borderRadius: '50%',
+              objectFit: 'cover',
+            }}
+          />
+        </div>
+      </div>
     </div>
+
   );
 }

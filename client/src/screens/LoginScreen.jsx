@@ -42,7 +42,7 @@ function LoginScreen() {
           <div className='bs'>
             <h2 className=''>Iniciar sesión</h2>
             <input type='text' className='form-control' placeholder='Correo electrónico' value={email} onChange={(e) => {setEmail(e.target.value)}}/>
-            <input type='text' className='form-control' placeholder='Contraseña' value={password} onChange={(e) => {setPassword(e.target.value)}}/>
+            <input type='password' className='form-control' placeholder='Contraseña' value={password} onChange={(e) => {setPassword(e.target.value)}}/>
 
             <button className='btn btn-primary mt-3' onClick={login}> Ingresar</button>
           </div>

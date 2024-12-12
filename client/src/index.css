@@ -14,46 +14,67 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-p{
-  font-size: 16px !important;
-}
+
 .navbar{
-  background-color: black !important;
+  background-color: #091235;
 }
+
 .nav-link{
-  color: white !important;
+  color: white;
 }
+
 .navbar-brand{
-  color: white !important;
+  color: white;
 } 
+
 .navbar-nav{
-  margin-left: auto !important;
+  margin-left: auto;
+}
+
+.title-rooms {
+  font-size: 50px;
+  font-weight: 700;
+  color: #091325;
+}
+
+.btn-details {
+  color: red;
+}
+
+p{
+  font-weight: 500;
 }
 
 /* Estilos room */
 .small-img {
   height: 200px;
-  width: 100% !important;
-  border-radius: 5px !important;
+  width: 100%;
+  border-radius: 5px;
 }
 .big-img{
   height: 400px;
-  border-radius: 5px !important;
+  border-radius: 5px;
 }
 h1 {
-  font-size: 20px !important;
+  font-weight: 600;
 }
+
 .btn {
-  background-color: black ;
+  background-color: #091235 ;
   color: #fff;
-  box-shadow: none !important;
+  box-shadow: none ;
 }
+
+.btn:hover {
+  background-color: #88A9C3 ;
+}
+
 .bs {
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   border: 1px solid #e6e6e6;
   margin-top: 20px;
-  border-radius: 5px !important;
-  padding: 20px !important;
+  border-radius: 5px;
+  padding: 20px;
 }
 
 /* Register */
@@ -74,11 +95,11 @@ h2 {
 }
 
 .dropdown-toggle {
-  border: 0px solid black !important;
+  border: 0px solid black;
 }
 
 .landing{
-  background-color: black;
+  background-color: #091235;
   height: 100vh;
   padding-top: 130px;
 
@@ -87,10 +108,15 @@ h2 {
   color: #fff;
 }
 
-.landingbtn{
+.landing-btn{
   background-color: #fff;
   color: black;
-  margin-top: 20px;
+  padding: 15px 30px;
+}
+
+.landing-btn:hover{
+  background-color: #88A9C3;
+  color: white;
 }
 
 .landing .col-md-12{

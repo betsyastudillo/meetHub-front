@@ -24,10 +24,10 @@ function Room({ room, fromDate, toDate }) {
 
         {(fromDate && toDate) && (
           <Link to={`/book/${room._id}/${fromDate}/${toDate}`}>
-            <button className="btn btn-primary m-2">Reserva Ahora</button>
+            <button className="btn mr-5">Reserva Ahora</button>
           </Link>
         )}
-          <button className="btn btn-primary" onClick={handleShow}>
+          <button className="btn btn-details" onClick={handleShow}>
             Ver Detalles
           </button>
         </div>

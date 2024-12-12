@@ -39,7 +39,7 @@ function AdminScreen() {
   return (
     <div className="mt-3 mx-3 bs">
       <h2 className="text-center" style={{ fontSize: "30px" }}>
-        Admin Panel
+        Panel Administrativo
       </h2>
       <Tabs defaultActiveKey="1" items={items} onChange={onChange} />
     </div>
@@ -48,12 +48,13 @@ function AdminScreen() {
 
 export default AdminScreen;
 
-/* Bookings = Reservas  */
 
+/* Bookings = Reservas  */
 export function Bookings() {
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
+
   useEffect(() => {
     async function fetchData() {
       try {
@@ -70,20 +71,22 @@ export function Bookings() {
   }, []);
 
   return (
-    <div className="row">
-      <div className="col-md-10">
-        <h1>Reservas</h1>
+    <div className="row m-5">
+      <div className="col-md-12">
         {loading && <Loader />}
+        {bookings.length && (
+          <h5 className="mb-5">Hay un total de: {bookings.length} reservas</h5>
+        )}
 
-        <table className="table table-bordered table-dark">
-          <thead className="bs">
+        <table className="table table-bordered">
+          <thead className="bs" style={{backgroundColor: '#88A9C3'}}>
             <tr>
-              <th>Reserva id </th>
-              <th>Usuario id</th>
-              <th>Salas</th>
-              <th>Desde</th>
-              <th>Hasta</th>
-              <th>Estado</th>
+              <th className="text-center">ID Reserva </th>
+              <th className="text-center">Cliente</th>
+              <th className="text-center">Salas</th>
+              <th className="text-center">Desde</th>
+              <th className="text-center">Hasta</th>
+              <th className="text-center">Estado</th>
             </tr>
           </thead>
           <tbody>
@@ -91,22 +94,20 @@ export function Bookings() {
               return <tr>
                 <td>{booking._id}</td>  {/* reservas id  = roomId */}
                 <td>{booking.userId}</td>
-                <td>{booking.room}</td>
-                <td>{booking.fromDate}</td>
-                <td>{booking.toDate}</td>
-                <td>{booking.status}</td>
+                <td className="text-center">{booking.room}</td>
+                <td className="text-center">{booking.fromDate}</td>
+                <td className="text-center">{booking.toDate}</td>
+                <td className="text-center">{booking.status}</td>
               </tr>
             }))}
           </tbody>
         </table>
 
-        {bookings.length && (
-          <h1>Hay un total de: {bookings.length} reservas</h1>
-        )}
       </div>
     </div>
   );
 }
+
 
 /* Salas  */
 export function Room() {
@@ -129,17 +130,19 @@ export function Room() {
   }, []);
 
   return (
-    <div className="row">
-      <div className="col-md-12">
-        <h1>Salas</h1>
+    <div className="row mt-5">
+      <div className="col-md-6">
         {loading && <Loader />}
+        {rooms.length && (
+          <h5 className="mb-5">Hay un total de: {rooms.length} salas</h5>
+        )}
 
-        <table className="table table-bordered table-dark">
-          <thead className="bs">
+        <table className="table table-bordered" >
+          <thead className="bs" style={{backgroundColor: '#88A9C3'}}>
             <tr>
-              <th>Salas id </th>
-              <th>Nombre id</th>
-              <th>Capacidad</th>
+              <th className="text-center">ID Sala</th>
+              <th className="text-center">Nombre Sala</th>
+              <th className="text-center">Capacidad</th>
 
             </tr>
           </thead>
@@ -147,27 +150,25 @@ export function Room() {
             {rooms.length && (rooms.map(room => {
               return <tr>
                 <td>{room._id}</td>
-                <td>{room.name}</td>
-                <td>{room.capacity}</td>
+                <td className="text-center">{room.name}</td>
+                <td className="text-center">{room.capacity}</td>
               </tr>
             }))}
           </tbody>
         </table>
 
-        {rooms.length && (
-          <h1>Hay un total de: {rooms.length} salas</h1>
-        )}
       </div>
     </div>
   );
 }
 
-/* Usuario */
 
+/* Usuario */
 export function User() {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
+
   useEffect(() => {
     async function fetchData() {
       try {
@@ -186,17 +187,16 @@ export function User() {
 
   return (
     <div className="row">
-      <div className="col-md-12">
-        <h1> Users</h1>
+      <div className="col-md-8">
         {loading && <loader />}
 
-        <table className="table table-dark table-bordered">
-          <thead>
+        <table className="table table-bordered">
+          <thead style={{backgroundColor: '#88A9C3'}}>
             <tr>
-              <th>Usuario id</th>
-              <th>Nombre</th>
-              <th>Correo electronico</th>
-              <th>Rol</th>
+              <th className="text-center">ID Usuario</th>
+              <th className="text-center">Nombre</th>
+              <th className="text-center">Correo electronico</th>
+              <th className="text-center">Rol</th>
             </tr>
           </thead>
 
@@ -204,9 +204,9 @@ export function User() {
             {users && (users.map(user => {
               return <tr>
                 <td>{user._id}</td>
-                <td>{user.name}</td>
+                <td className="text-center">{user.name}</td>
                 <td>{user.email}</td>
-                <td>{user.isAdmin ? 'ADMIN' : 'USUARIO'}</td>
+                <td className="text-center">{user.isAdmin ? 'Administrador' : 'Cliente'}</td>
               </tr>
             }))}
           </tbody>
@@ -220,7 +220,6 @@ export function User() {
 
 
 /* Panel Administrador */
-
 export function Addroom() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState();
@@ -234,8 +233,6 @@ export function Addroom() {
 
   async function addRoom() {
 
-
-
     const newroom = {
       name,
       capacity,
@@ -246,42 +243,38 @@ export function Addroom() {
     try {
 
       setLoading(true);
+
       const result = (await axios.post('/api/rooms/addroom', newroom)).data
-      console.log(result)
       setLoading(false)
+
       Swal.fire('Felicidades', 'La sala se creo exitosamente', 'success').then(result => {
         window.location.href = '/home'
       })
+
     } catch (error) {
+
       console.log(error)
       setLoading(false)
-      Swal.fire('OOps', 'Something went wrong', 'error')
+      Swal.fire('Ups', 'Algo ha salido mal, por favor intenta de nuevo.', 'error')
     }
   }
 
   return (
-    <div className="row">
+    <div className="row m-5">
+      <h3 className="m-3">Crear Sala</h3>
+        <div className="col-md-3">
+          {loading && <loader />}
+          <input type="text" className="form-control" placeholder="Nombre sala"
+            value={name} onChange={(e) => { setName(e.target.value) }}
+          />
+          <input type="text" className="form-control" placeholder="Capacidad"
+            value={capacity} onChange={(e) => { setCapacity(e.target.value) }}
+          />
+          <input type="text" className="form-control" placeholder="Locacion"
+            value={location} onChange={(e) => { setLocation(e.target.value) }} />
+        </div>
 
-
-      <div className="col-md-5">
-        {loading && <loader />}
-        <input type="text" className="form-control" placeholder="Nombre sala"
-          value={name} onChange={(e) => { setName(e.target.value) }}
-        />
-
-        <input type="text" className="form-control" placeholder="Capacidad"
-          value={capacity} onChange={(e) => { setCapacity(e.target.value) }}
-        />
-
-        <input type="text" className="form-control" placeholder="Locacion"
-          value={location} onChange={(e) => { setLocation(e.target.value) }} />
-        {/* <input type="text"  className="form-control" placeholder="Estado"/> */}
-
-      </div>
-
-      {/* --------- */}
-
-      <div className="col-md-5">
+      <div className="col-md-4">
         <input type="text" className="form-control" placeholder="Imagen url 1"
           value={imgUrl1} onChange={(e) => { setImgUrl1(e.target.value) }}
         />
@@ -293,7 +286,7 @@ export function Addroom() {
         />
 
         <div className="text-right">
-          <button className="btn btn-primary mt-2" onClick={addRoom}>Agregar Sala</button>
+          <button className="btn mt-5" onClick={addRoom}>Crear</button>
         </div>
       </div>
     </div>
