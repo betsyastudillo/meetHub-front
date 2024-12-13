@@ -2,7 +2,7 @@ import { Tabs, Divider, Flex, Tag  } from "antd";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Loader from "../Components/Loader";
-import Error from "../Components/Error";
+// import Error from "../Components/Error";
 import Swal from "sweetalert2";
 
 const onChange = (key) => {
@@ -93,12 +93,12 @@ export function MyBookings() {
 
   return (
     <div>
-      <div className="row m-5">
-        <div className="col-md-6">
+      <div className="mt-5 ">
+        <div className="row ml-5">
           {loading && <Loader />}
           {bookings &&
             bookings.map((booking) => (
-              <div className="bs" style={{backgroundColor: 'wheat', borderRadius: '10px'}}>
+              <div className="bs reservas m-2 col-md-5 px-5 py-4" style={{borderRadius: '10px'}}>
                 <h2>{booking.room}</h2>
                 <p>
                   <b>ID Reserva:</b> {booking._id}
@@ -136,7 +136,7 @@ export function MyBookings() {
 
 export function MyProfile() {
   return (
-    <div className="card bs col-sm-5 m-5" style={{borderRadius: '10px', backgroundColor: '#88A9C3'}}>
+    <div className="card bs col-md-6 m-5" style={{borderRadius: '10px', backgroundColor: '#8cbadd'}}>
       <div className="m-5 d-flex justify-content-between align-items-center">
         <div className="info">
           <h1>Mi Perfil</h1>

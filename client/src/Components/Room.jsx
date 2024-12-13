@@ -48,7 +48,7 @@ function Room({ room, fromDate, toDate, isNotTop }) {
               );
             })}
           </Carousel>
-          <p>Alguna descripción de salas</p>
+          <p className="mt-2">Alguna descripción de salas</p>
           <p>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde sequi
             saepe earum fugiat aut officia dolor et eaque voluptatum quod amet

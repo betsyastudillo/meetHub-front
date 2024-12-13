@@ -182,8 +182,8 @@ export function Room() {
   };
 
   return (
-    <div className="row mt-5">
-      <div className="col-md-6">
+    <div className="row m-5">
+      <div className="col-md-8">
         {loading && <Loader />}
         {rooms.length && (
           <h5 className="mb-5">Hay un total de: {rooms.length} salas</h5>
@@ -253,7 +253,7 @@ export function User() {
   }, []);
 
   return (
-    <div className="row">
+    <div className="row mt-3 ml-5">
       <div className="col-md-8">
         {loading && <loader />}
 

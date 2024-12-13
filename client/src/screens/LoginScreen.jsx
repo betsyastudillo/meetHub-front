@@ -12,7 +12,8 @@ function LoginScreen() {
   const [error, setError] = useState();
   // const navigate = useNavigate();
 
-  async function login() {
+  async function login(e) {
+    e.preventDefault(e);
     const user = {
       email,
       password,
@@ -38,15 +39,15 @@ function LoginScreen() {
   return (
     <div>
       {loading && <Loader />}
-      <div className="row justify-content-center mt-5">
+      <div className="row justify-content-center text-center mt-5">
         <div className="col-md-5 mt-5">
           {error && (
             <Error message="Correo o contraseña incorrectos. Intente nuevamente" />
           )}
-          <div className="bs">
+          <form className="bs" onSubmit={(e) => login(e)}>
             <h2 className="">Iniciar sesión</h2>
             <input
-              type="text"
+              type="email"
               className="form-control"
               placeholder="Correo electrónico"
               value={email}
@@ -64,11 +65,11 @@ function LoginScreen() {
               }}
             />
 
-            <button className="btn btn-primary mt-3" onClick={login}>
+            <button className="btn btn-primary mt-4 px-3 py-2" >
               {" "}
               Ingresar
             </button>
-          </div>
+          </form>
         </div>
       </div>
     </div>
